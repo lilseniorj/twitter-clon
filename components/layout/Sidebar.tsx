@@ -1,59 +1,59 @@
-import { BsHouseFill, BsBellFill } from "react-icons/bs";
+import { signOut } from 'next-auth/react';
+import { BiLogOut } from 'react-icons/bi';
+import { BsHouseFill, BsBellFill } from 'react-icons/bs';
 import { FaUser } from 'react-icons/fa';
-import { BiLogOut } from "react-icons/bi";
-import { signOut } from "next-auth/react";
 
-import useCurrentUser from "@/hooks/useCurrentUser";
+import useCurrentUser from '@/hooks/useCurrentUser';
 
-import SidebarItem from "./SidebarItem";
-import SidebarLogo from "./SidebarLogo";
+import SidebarItem from './SidebarItem';
+import SidebarLogo from './SidebarLogo';
 import SidebarTweetButton from './SidebarTweetButton';
 
 const Sidebar = () => {
   const { data: currentUser } = useCurrentUser();
+
   const items = [
     {
+      icon: BsHouseFill,
       label: 'Home',
       href: '/',
-      icon: BsHouseFill
     },
     {
+      icon: BsBellFill,
       label: 'Notifications',
       href: '/notifications',
-      icon: BsBellFill,
       auth: true,
-      alert: currentUser?.hasNotification,
+      alert: currentUser?.hasNotification
     },
     {
+      icon: FaUser,
       label: 'Profile',
       href: `/users/${currentUser?.id}`,
-      icon: FaUser,
-      auth: true
-    }
+      auth: true,
+    },
   ]
-  return(
+
+  return (
     <div className="col-span-1 h-full pr-4 md:pr-6">
-      <div className="flex flex-col items-end">
-        <div className="space-y-2 lg:w-[230px]">
-          <SidebarLogo />
-          {items.map((item) => (
-            <SidebarItem
-              key={item.href}
-              href={item.href}
-              label={item.label}
-              icon={item.icon}
-              auth={item.auth}
-              alert={item.alert}
-            />
-          ))}
-          {currentUser && (
-            <SidebarItem onClick={() => signOut()} icon={BiLogOut} label="Logout" />
-          )}
-          <SidebarTweetButton />
+        <div className="flex flex-col items-end">
+          <div className="space-y-2 lg:w-[230px]">
+            <SidebarLogo />
+            {items.map((item) => (
+              <SidebarItem
+                key={item.href}
+                alert={item.alert}
+                auth={item.auth}
+                href={item.href} 
+                icon={item.icon} 
+                label={item.label}
+              />
+            ))}
+            {currentUser && <SidebarItem onClick={() => signOut()} icon={BiLogOut} label="Logout" />}
+            <SidebarTweetButton />
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+  )
+};
 
 export default Sidebar;
