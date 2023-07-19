@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-
 import Button from "./Button";
 
 interface ModalProps {
@@ -14,17 +13,7 @@ interface ModalProps {
   disabled?: boolean;
 }
 
-
-const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  onSubmit,
-  title,
-  body,
-  actionLabel,
-  footer,
-  disabled
-}) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, title, body, actionLabel, footer, disabled }) => {
   const handleClose = useCallback(() => {
     if (disabled) {
       return;
@@ -45,7 +34,6 @@ const Modal: React.FC<ModalProps> = ({
     return null;
   }
 
-
   return (
     <>
       <div
@@ -64,48 +52,36 @@ const Modal: React.FC<ModalProps> = ({
           bg-opacity-70
         "
       >
-        <div
-          className="
-            relative
-            w-full
-            lg:w-3/6
-            my-6
-            mx-auto
-            lg:max-w-3xl
+        <div className="relative w-full lg:w-3/6 my-6 mx-auto lg:max-w-3xl h-full lg:h-auto">
+          {/*content*/}
+          <div className="
             h-full
             lg:h-auto
-          "
-        >
-          {/*Content*/}
-          <div
-            className="
-              h-full
-              lg:h-auto
-              border-0
-              rounded-lg
-              shadow-lg
-              relative
-              flex
-              flex-col
-              w-full
-              bg-black
-              outline-none
-              focus:outline-none
+            border-0
+            rounded-lg
+            shadow-lg
+            relative
+            flex
+            flex-col
+            w-full
+            bg-black
+            outline-none
+            focus:outline-none
             "
           >
-            {/* Header */}
-            <div
-              className="
-                flex
-                items-center
-                justify-between
-                p-10
-                rounded-t
+            {/*header*/}
+            <div className="
+              flex
+              items-center
+              justify-between
+              p-10
+              rounded-t
               "
             >
-              <h3 className="text-3xl font-semibold text-white">{title}</h3>
+              <h3 className="text-3xl font-semibold text-white">
+                {title}
+              </h3>
               <button
-                onClick={handleClose}
                 className="
                   p-1
                   ml-auto
@@ -114,6 +90,7 @@ const Modal: React.FC<ModalProps> = ({
                   hover:opacity-70
                   transition
                 "
+                onClick={handleClose}
               >
                 <AiOutlineClose size={20} />
               </button>
@@ -124,14 +101,7 @@ const Modal: React.FC<ModalProps> = ({
             </div>
             {/*footer*/}
             <div className="flex flex-col gap-2 p-10">
-              <Button
-                disabled={disabled}
-                label={actionLabel}
-                secondary
-                fullWidth
-                large
-                onClick={handleSubmit}
-              />
+              <Button disabled={disabled} label={actionLabel} secondary fullWidth large onClick={handleSubmit} />
               {footer}
             </div>
           </div>
