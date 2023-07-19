@@ -4,8 +4,9 @@ import { ClipLoader } from "react-spinners";
 import usePost from "@/hooks/usePost";
 
 import Header from "@/components/Header";
-import PostItem from "@/components/posts/PostItem";
 import Form from "@/components/Form";
+import PostItem from "@/components/posts/PostItem";
+import CommentFeed from "@/components/posts/CommentFeed";
 
 const PostView = () => {
   const router = useRouter();
@@ -30,6 +31,7 @@ const PostView = () => {
         isComment
         placeholder="Tweet your reply"
       />
+      <CommentFeed comments={fetchedPost?.comments} />
     </>
   );
 }
