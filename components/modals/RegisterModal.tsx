@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import { useCallback, useState } from "react";
+import { signIn } from 'next-auth/react';
 
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 
-import Input  from "../Input";
+import Input from "../Input";
 import Modal from "../Modal";
 
 const RegisterModal = () => {
@@ -15,8 +15,9 @@ const RegisterModal = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+
   const [isLoading, setIsLoading] = useState(false);
 
   const onToggle = useCallback(() => {
@@ -26,9 +27,9 @@ const RegisterModal = () => {
 
     registerModal.onClose();
     loginModal.onOpen();
-  }, [isLoading, registerModal, loginModal]);
+  }, [loginModal, registerModal, isLoading]);
 
-  const onSubmit = useCallback(async() => {
+  const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -39,48 +40,49 @@ const RegisterModal = () => {
         name,
       });
 
+      setIsLoading(false)
+
       toast.success('Account created.');
 
       signIn('credentials', {
         email,
-        password
+        password,
       });
 
       registerModal.onClose();
-    } catch(error) {
-      console.log(error);
-      toast.error('Something went wrong')
+    } catch (error) {
+      toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
     }
-  }, [registerModal, email, password, username, name ]);
+  }, [email, password, registerModal, username, name]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Input
+        disabled={isLoading}
         placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
         value={email}
-        disabled={isLoading}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <Input
+        disabled={isLoading}
         placeholder="Name"
-        onChange={(e) => setName(e.target.value)}
         value={name}
-        disabled={isLoading}
+        onChange={(e) => setName(e.target.value)}
       />
       <Input
+        disabled={isLoading}
         placeholder="Username"
-        onChange={(e) => setUsername(e.target.value)}
         value={username}
-        disabled={isLoading}
+        onChange={(e) => setUsername(e.target.value)}
       />
       <Input
+        disabled={isLoading}
         placeholder="Password"
         type="password"
-        onChange={(e) => setPassword(e.target.value)}
         value={password}
-        disabled={isLoading}
+        onChange={(e) => setPassword(e.target.value)}
       />
     </div>
   )
@@ -95,7 +97,7 @@ const RegisterModal = () => {
             cursor-pointer
             hover:underline
           "
-        > Sign in</span>
+          > Sign in</span>
       </p>
     </div>
   )
