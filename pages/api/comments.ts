@@ -1,13 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import serverAuth from "@/libs/serverAuth";
-import prisma from "@/libs/prismadb"
+import prisma from "@/libs/prismadb";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if(req.method !== 'POST'){
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
     return res.status(405).end();
   }
 
@@ -28,16 +25,18 @@ export default async function handler(
       }
     });
 
+    // NOTIFICATION PART START
     try {
       const post = await prisma.post.findUnique({
         where: {
-          id: postId
+          id: postId,
         }
       });
+
       if (post?.userId) {
         await prisma.notification.create({
           data: {
-            body: 'Someone replied to your tweet!',
+            body: 'Someone replied on your tweet!',
             userId: post.userId
           }
         });
@@ -49,15 +48,15 @@ export default async function handler(
           data: {
             hasNotification: true
           }
-        })
+        });
       }
-
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
     }
+    // NOTIFICATION PART END
 
     return res.status(200).json(comment);
-
   } catch (error) {
     console.log(error);
     return res.status(400).end();
