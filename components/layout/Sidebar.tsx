@@ -43,8 +43,8 @@ const Sidebar = () => {
                 key={item.href}
                 alert={item.alert}
                 auth={item.auth}
-                href={item.href} 
-                icon={item.icon} 
+                href={item.href}
+                icon={item.icon}
                 label={item.label}
               />
             ))}

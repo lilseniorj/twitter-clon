@@ -50,7 +50,7 @@ const PostItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
   }, [data.createdAt])
 
   return (
-    <div 
+    <div
       onClick={goToPost}
       className="
         border-b-[1px]
@@ -93,7 +93,7 @@ const PostItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
             {data.body}
           </div>
           <div className="flex flex-row items-center mt-3 gap-10">
-            <div 
+            <div
               className="
                 flex
                 flex-row
